@@ -18,8 +18,8 @@ public class ConflictActivity extends AppCompatActivity implements OnClickListen
     private ListView lv;
     private MyAdapter adapter;
 
-    private Button btn_add;
-    private Button btn_clear;
+//    private Button btn_add;
+//    private Button btn_clear;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +32,13 @@ public class ConflictActivity extends AppCompatActivity implements OnClickListen
         myHelper = new DBOpenHelper(this,DB_NAME,null,1);
         adapter = new MyAdapter(this,myHelper.getBasicInfo());
         lv.setAdapter(adapter);
+        /*
         btn_add = findViewById(R.id.btn_add);
         btn_clear = findViewById(R.id.btn_clear);
         btn_add.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
+        */
+
     }
 
     public int deleteAll()
@@ -48,7 +51,7 @@ public class ConflictActivity extends AppCompatActivity implements OnClickListen
         super.onPause();
         myHelper.close();
     }
-
+/*
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_add){
@@ -67,5 +70,21 @@ public class ConflictActivity extends AppCompatActivity implements OnClickListen
                         "列表为空！", Toast.LENGTH_LONG).show();
             }
         }
+    }
+*/
+    @Override
+    public void onClick(View v) {
+        /*
+        if(v.getId() == R.id.btn_clear) {
+            if (deleteAll() > 0) {
+                Toast.makeText(ConflictActivity.this,
+                        "清空成功！", Toast.LENGTH_LONG).show();
+                finish();
+                startActivity(new Intent(ConflictActivity.this, ConflictActivity.class));
+            } else {
+                Toast.makeText(ConflictActivity.this,
+                        "列表为空！", Toast.LENGTH_LONG).show();
+            }
+        }*/
     }
 }
