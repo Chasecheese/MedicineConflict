@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +13,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText et_name;
     private EditText et_conflict;
+    private EditText et_conflict2;
     private Button btn_ok;
     private Button btn_back;
 
@@ -50,6 +54,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
         et_name = findViewById(R.id.et_itemname);
         et_conflict = findViewById(R.id.et_itemconflict);
+        et_conflict2 = findViewById(R.id.et_itemconflict2);
         btn_ok=findViewById(R.id.button1);
         btn_back=findViewById(R.id.button2);
         btn_ok.setOnClickListener(this);
@@ -61,9 +66,9 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         if(c.moveToFirst())
         {
             String name=c.getString(c.getColumnIndex(NAME));
-            String phone_number=c.getString(c.getColumnIndex(CONFLICT));
+            String conflict=c.getString(c.getColumnIndex(CONFLICT));
 
-            MedicineItem d=new MedicineItem(name,phone_number);
+            MedicineItem d=new MedicineItem(name,conflict);
             d.setID(c.getInt(c.getColumnIndex("ID")));
             et_name.setText(d.getName());
             et_conflict.setText(d.getConflict());
@@ -76,7 +81,15 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         if(view.getId() == R.id.button1){
             ContentValues value=new ContentValues();
             value.put(NAME, et_name.getText().toString());
-            value.put(CONFLICT, et_conflict.getText().toString());
+
+            ArrayList<String> Input = new ArrayList<String>();
+            Input.add(et_conflict2.getText().toString());
+            Input.add(et_conflict.getText().toString());
+            String joined = TextUtils.join(",",Input);
+
+            //value.put(CONFLICT, et_conflict.getText().toString());
+            value.put(CONFLICT, joined);
+
             long result;
             if(flag==0)
                 result=db.insert(TABLE_NAME, null, value);
