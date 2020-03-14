@@ -33,15 +33,17 @@
         android:gravity="right"
         android:layout_weight="1"
         >
+        <!--
         <Button
             android:id="@+id/btn_del"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="删除" />
+        -->
         <Button
-            android:id="@+id/btn_edit"
+            android:id="@+id/btn_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="修改" />
+            android:text="查看" />
     </LinearLayout>
 </LinearLayout>

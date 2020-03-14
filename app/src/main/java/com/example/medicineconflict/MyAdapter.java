@@ -20,8 +20,7 @@ public class MyAdapter extends BaseAdapter {
     public static class ViewHolder{
         TextView tv_name;
         TextView tv_conflict;
-        Button btn_edit;
-        Button btn_del;
+        Button btn_check;
     }
 
     private DBOpenHelper myHelper;
@@ -60,8 +59,7 @@ public class MyAdapter extends BaseAdapter {
 
             viewHolder.tv_name = convertView.findViewById(R.id.tv_name);
             viewHolder.tv_conflict = convertView.findViewById(R.id.tv_conflict);
-            viewHolder.btn_edit = convertView.findViewById(R.id.btn_edit);
-            viewHolder.btn_del = convertView.findViewById(R.id.btn_del);
+            viewHolder.btn_check = convertView.findViewById(R.id.btn_check);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -70,7 +68,7 @@ public class MyAdapter extends BaseAdapter {
         viewHolder.tv_conflict.setText(list.get(position).getConflict());
         final int id = list.get(position).getID();
 
-        viewHolder.btn_edit.setOnClickListener(new View.OnClickListener() {
+        viewHolder.btn_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ItemActivity.class);
@@ -78,14 +76,7 @@ public class MyAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-        viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myHelper.delete(id);
-                Intent intent = new Intent(context, ConflictActivity.class);
-                context.startActivity(intent);
-            }
-        });
+
         return convertView;
     }
 }
