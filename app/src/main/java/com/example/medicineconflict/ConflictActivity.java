@@ -10,12 +10,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
-
 public class ConflictActivity extends AppCompatActivity implements OnClickListener{
 
 
-    public static final String DB_NAME = "my_medicine";
+    public static final String DB_NAME = "my_medicine_db";
     private DBOpenHelper myHelper;
     private ListView lv;
     private MyAdapter adapter;
@@ -54,14 +52,15 @@ public class ConflictActivity extends AppCompatActivity implements OnClickListen
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_add){
-            Intent intent = new Intent(ConflictActivity.this, MainActivity.class);
+            Intent intent = new Intent(ConflictActivity.this, ItemActivity.class);
             startActivity(intent);
+            finish();
         }else if(v.getId() == R.id.btn_clear){
             if(deleteAll()>0) {
                 Toast.makeText(ConflictActivity.this,
                         "清空成功！", Toast.LENGTH_LONG).show();
                 finish();
-                startActivity(new Intent(ConflictActivity.this, MainActivity.class));
+                startActivity(new Intent(ConflictActivity.this, ConflictActivity.class));
             }
             else{
                 Toast.makeText(ConflictActivity.this,

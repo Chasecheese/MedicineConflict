@@ -26,7 +26,7 @@ public class MyAdapter extends BaseAdapter {
 
     private DBOpenHelper myHelper;
 
-    public static final String DB_NAME = "my_medicine";
+    public static final String DB_NAME = "my_medicine_db";
 
     public MyAdapter(Context context, List<MedicineItem> list){
         inflater = LayoutInflater.from(context);
@@ -53,7 +53,7 @@ public class MyAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        viewHolder = null;
+
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.medicine_item, null);
             viewHolder = new ViewHolder();
@@ -82,8 +82,8 @@ public class MyAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 myHelper.delete(id);
-                Intent intent = new Intent((MainActivity) context, MainActivity.class);
-                ((MainActivity) context).startActivity(intent);
+                Intent intent = new Intent(context, ConflictActivity.class);
+                context.startActivity(intent);
             }
         });
         return convertView;
