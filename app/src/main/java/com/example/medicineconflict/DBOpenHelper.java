@@ -26,8 +26,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("drop table if exists "+"TABLE_NAME");
