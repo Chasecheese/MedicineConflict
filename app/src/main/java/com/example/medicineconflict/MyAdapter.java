@@ -19,7 +19,7 @@ public class MyAdapter extends BaseAdapter {
 
     public static class ViewHolder{
         TextView tv_name;
-        TextView tv_conflict;
+//        TextView tv_conflict;
         Button btn_check;
     }
 
@@ -58,14 +58,14 @@ public class MyAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.tv_name = convertView.findViewById(R.id.tv_name);
-            viewHolder.tv_conflict = convertView.findViewById(R.id.tv_conflict);
+//            viewHolder.tv_conflict = convertView.findViewById(R.id.tv_conflict);
             viewHolder.btn_check = convertView.findViewById(R.id.btn_check);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tv_name.setText(list.get(position).getName());
-        viewHolder.tv_conflict.setText(list.get(position).getConflict());
+//        viewHolder.tv_conflict.setText(list.get(position).getConflict());
         final int id = list.get(position).getID();
 
         viewHolder.btn_check.setOnClickListener(new View.OnClickListener() {

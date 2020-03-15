@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText et_name;
     private EditText et_conflict;
-    private EditText et_conflict2;
+//    private EditText et_conflict2;
 //    private Button btn_ok;
 //    private Button btn_back;
 
@@ -54,7 +54,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
         et_name = findViewById(R.id.et_itemname);
         et_conflict = findViewById(R.id.et_itemconflict);
-        et_conflict2 = findViewById(R.id.et_itemconflict2);
+//        et_conflict2 = findViewById(R.id.et_itemconflict2);
 //        btn_ok=findViewById(R.id.button1);
 //        btn_back=findViewById(R.id.button2);
 //        btn_ok.setOnClickListener(this);
