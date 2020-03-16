@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MyAdapter extends BaseAdapter {
+public class ListAllAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<MedicineItem> list;
@@ -25,7 +25,7 @@ public class MyAdapter extends BaseAdapter {
     public static final String DB_NAME = "new_medicine_db";
     public static final String TABLE_NAME="newMedicineItem";
 
-    public MyAdapter(Context context, List<MedicineItem> list){
+    public ListAllAdapter(Context context, List<MedicineItem> list){
         inflater = LayoutInflater.from(context);
         this.list = list;
         this.context = context;
@@ -66,7 +66,7 @@ public class MyAdapter extends BaseAdapter {
         viewHolder.btn_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ItemActivity.class);
+                Intent intent = new Intent(context, ShowItemActivity.class);
                 intent.putExtra("id", id);
                 context.startActivity(intent);
             }

@@ -3,8 +3,6 @@ package com.example.medicineconflict;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShowItemActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView tv_name;
 
     public static final String DB_NAME = "new_medicine_db";

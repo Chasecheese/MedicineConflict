@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_mainactivity_conflict:
-                startActivity(new Intent(this, ConflictActivity.class));
+                startActivity(new Intent(this, ListAllActivity.class));
                 break;
             case R.id.button_mainactivity_others:
                 Toast.makeText(this, "Not Ready!", Toast.LENGTH_SHORT).show();

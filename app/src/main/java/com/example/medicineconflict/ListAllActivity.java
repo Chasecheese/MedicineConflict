@@ -6,25 +6,25 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ConflictActivity extends AppCompatActivity implements OnClickListener{
+public class ListAllActivity extends AppCompatActivity implements OnClickListener{
 
 
     public static final String DB_NAME = "new_medicine_db";
     public static final String TABLE_NAME="newMedicineItem";
     private DBOpenHelper myHelper;
-    private MyAdapter adapter;
+    private ListAllAdapter adapter;
     private ListView lv;
     private ListView lv2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conflict);
+        setContentView(R.layout.activity_list_all);
         initView();
     }
 
     private void initView(){
         lv = findViewById(R.id.listView_medicine);
         myHelper = new DBOpenHelper(this,DB_NAME,null,1);
-        adapter = new MyAdapter(this,myHelper.getBasicInfo());
+        adapter = new ListAllAdapter(this,myHelper.getBasicInfo());
         lv.setAdapter(adapter);
     }
 
