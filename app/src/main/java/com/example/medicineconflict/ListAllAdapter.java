@@ -19,7 +19,7 @@ public class ListAllAdapter extends BaseAdapter {
 
     public static class ViewHolder{
         TextView tv_name;
-        Button btn_check;
+        //Button btn_check;
     }
 
     public static final String DB_NAME = "new_medicine_db";
@@ -55,14 +55,14 @@ public class ListAllAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.tv_name = convertView.findViewById(R.id.tv_name);
-            viewHolder.btn_check = convertView.findViewById(R.id.btn_check);
+            //viewHolder.btn_check = convertView.findViewById(R.id.btn_check);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tv_name.setText(list.get(position).getName());
         final int id = list.get(position).getID();
-
+        /*
         viewHolder.btn_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +71,7 @@ public class ListAllAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+        */
 
         return convertView;
     }
