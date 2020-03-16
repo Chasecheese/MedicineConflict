@@ -44,7 +44,7 @@ public class ListAllActivity extends AppCompatActivity implements OnClickListene
         myHelper = new DBOpenHelper(this, DB_NAME, null, 1);
         db = myHelper.getWritableDatabase();
         initList();
-        searchView = findViewById(R.id.sv);
+
     }
 
     public void initList(){
@@ -70,6 +70,7 @@ public class ListAllActivity extends AppCompatActivity implements OnClickListene
 
                 String result = arg0.getItemAtPosition(arg2).toString();//获取选择项的值
                 String name = result.substring(result.indexOf("=")+1,result.indexOf("}"));
+
                 Intent intent = new Intent(ListAllActivity.this, ShowItemActivity.class);
                 intent.putExtra("id", checkMap.get(name).getID());
 
