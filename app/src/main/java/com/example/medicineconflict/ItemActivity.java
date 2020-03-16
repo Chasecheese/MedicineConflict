@@ -1,14 +1,17 @@
 package com.example.medicineconflict;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +20,7 @@ import java.util.HashMap;
 
 
 public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
-    private EditText et_name;
-    private EditText et_conflict;
+    private TextView tv_name;
 //    private EditText et_conflict2;
 //    private Button btn_ok;
 //    private Button btn_back;
@@ -30,24 +32,82 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     public static final String CONFLICT="Conflict_Name";
 
     private DBOpenHelper myHelper;
-
     private SQLiteDatabase db;
-
-//    private int flag = 0;
-    private int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         initView();
-        if(getIntent().getIntExtra("id",0)>0)//判断是新增还是修改
-        {
-            id=getIntent().getIntExtra("id",0);
-            setMedicineInfo(id);
-//            flag=1;
+        int id = getIntent().getIntExtra("id",0);
+        MedicineItem temp = setMedicineInfo(id);
+        tv_name.setText(temp.getName());
+        setTitle(temp.getName());
+
+        String conflict = temp.getConflict();
+        String[] coList = conflict.split(",");
+
+        ListView list = findViewById(R.id.ListView);
+
+        // 生成动态数组，加入数据
+        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < coList.length; i++) {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+
+            String couple[];
+            couple = coList[i].split("-");
+            map.put("ItemTitle", couple[0]+"");
+
+            String level = new String();
+
+            switch (Integer.parseInt(couple[1])){
+                case 1:
+                    level = "轻度";
+                    break;
+                case 2:
+                    level = "中度";
+                    break;
+                case 3:
+                    level = "严重";
+                    break;
+                default:
+                    break;
+            }
+            map.put("ItemText", level+" ");
+            listItem.add(map);
         }
 
+        // 生成适配器的Item和动态数组对应的元素
+        SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,// 数据源
+                R.layout.list_items,// ListItem的XML实现
+                // 动态数组与ImageItem对应的子项
+                new String[] { "ItemTitle", "ItemText" },
+                // ImageItem的XML文件里面的一个ImageView,两个TextView ID
+                new int[] { R.id.ItemTitle, R.id.ItemText });
+
+        // 添加并且显示
+        list.setAdapter(listItemAdapter);
+
+        // 添加点击
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                setTitle("点击第" + arg2 + "项");
+            }
+        });
+
+        // 添加长按点击
+        list.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v,
+                                            ContextMenu.ContextMenuInfo menuInfo) {
+                menu.setHeaderTitle("长按菜单-ContextMenu");
+                menu.add(0, 0, 0, "弹出长按菜单0");
+                menu.add(0, 1, 0, "弹出长按菜单1");
+            }
+        });
 
     }
 
@@ -55,8 +115,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         myHelper = new DBOpenHelper(this,DB_NAME,null,1);
         db = myHelper.getWritableDatabase();
 
-        et_name = findViewById(R.id.et_itemname);
-        et_conflict = findViewById(R.id.et_itemconflict);
+        tv_name = findViewById(R.id.tv_itemname);
 //        et_conflict2 = findViewById(R.id.et_itemconflict2);
 //        btn_ok=findViewById(R.id.button1);
 //        btn_back=findViewById(R.id.button2);
@@ -64,19 +123,27 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 //        btn_back.setOnClickListener(this);
     }
 
-    private void setMedicineInfo(int id) {
+    private MedicineItem setMedicineInfo(int id) {
         Cursor c=db.query(TABLE_NAME,new String[]{},"ID="+id,null,null,null,null);
         if(c.moveToFirst())
         {
             String name=c.getString(c.getColumnIndex(NAME));
             String conflict=c.getString(c.getColumnIndex(CONFLICT));
-
             MedicineItem d=new MedicineItem(name,conflict);
             d.setID(c.getInt(c.getColumnIndex("ID")));
-            et_name.setText(d.getName());
-            et_conflict.setText(d.getConflict());
+            c.close();
+            return d;
         }
-        c.close();
+        else {
+            c.close();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        setTitle("点击了长按菜单的第" + item.getItemId() + "项");
+        return super.onContextItemSelected(item);
     }
 
     @Override

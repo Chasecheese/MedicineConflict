@@ -7,16 +7,10 @@ public class MedicineItem {
     private int ID;
     private String Name;
     private String Conflict;
-    private ArrayList<String> coList;
 
     public MedicineItem(String name, String conflict) {
         Name = name;
         Conflict = conflict;
-    }
-
-    public MedicineItem(String name, ArrayList<String> coList) {
-        this.Name = name;
-        this.coList = coList;
     }
 
     public int getID() {
