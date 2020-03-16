@@ -1,19 +1,20 @@
 package com.example.medicineconflict;
 
-import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.ContextMenu;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText et_name;
@@ -32,7 +33,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
     private SQLiteDatabase db;
 
-    private int flag = 0;
+//    private int flag = 0;
     private int id = 0;
 
     @Override
@@ -44,8 +45,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         {
             id=getIntent().getIntExtra("id",0);
             setMedicineInfo(id);
-            flag=1;
+//            flag=1;
         }
+
+
     }
 
     private void initView(){
@@ -67,8 +70,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         {
             String name=c.getString(c.getColumnIndex(NAME));
             String conflict=c.getString(c.getColumnIndex(CONFLICT));
-
-
 
             MedicineItem d=new MedicineItem(name,conflict);
             d.setID(c.getInt(c.getColumnIndex("ID")));

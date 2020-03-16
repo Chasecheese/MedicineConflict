@@ -19,7 +19,6 @@ public class MyAdapter extends BaseAdapter {
 
     public static class ViewHolder{
         TextView tv_name;
-//        TextView tv_conflict;
         Button btn_check;
     }
 
