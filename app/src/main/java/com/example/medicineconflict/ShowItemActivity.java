@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class ShowItemActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShowItemActivity extends AppCompatActivity {
     private TextView tv_name;
 
     public static final String DB_NAME = "new_medicine_db";
@@ -29,12 +32,56 @@ public class ShowItemActivity extends AppCompatActivity implements View.OnClickL
 
     private DBOpenHelper myHelper;
     private SQLiteDatabase db;
+    private RadioGroup rg;
+    private RadioButton rb4;
+    private RadioButton rb3;
+    private RadioButton rb2;
+    private RadioButton rb1;
+    private ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         initView();
+        initLsit();
+        initButtons();
+    }
+
+    public void initButtons(){
+        rg = findViewById(R.id.RG);
+        rb4 = findViewById(R.id.rb4);
+        rb3 = findViewById(R.id.rb3);
+        rb2 = findViewById(R.id.rb2);
+        rb1 = findViewById(R.id.rb1);
+        rg.setOnCheckedChangeListener(new getItem());
+    }
+
+    private class getItem implements RadioGroup.OnCheckedChangeListener{
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if(checkedId==rb4.getId()){
+                Toast.makeText(ShowItemActivity.this,"rb4选中", Toast.LENGTH_LONG).show();
+            }
+            if(checkedId==rb3.getId()){
+                Toast.makeText(ShowItemActivity.this,"rb3选中", Toast.LENGTH_LONG).show();
+            }
+            if(checkedId==rb2.getId()){
+                Toast.makeText(ShowItemActivity.this,"rb2选中", Toast.LENGTH_LONG).show();
+            }
+            if(checkedId==rb1.getId()){
+                Toast.makeText(ShowItemActivity.this,"rb1选中", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void initView() {
+        myHelper = new DBOpenHelper(this, DB_NAME, null, 1);
+        db = myHelper.getWritableDatabase();
+        tv_name = findViewById(R.id.tv_itemname);
+    }
+
+    private void initLsit(){
         int id = getIntent().getIntExtra("id", 0);
         MedicineItem temp = setMedicineInfo(id);
         tv_name.setText(temp.getName());
@@ -89,54 +136,22 @@ public class ShowItemActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
-        /*
-        SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,// 数据源
-                R.layout.list_items,
-                // 动态数组与ImageItem对应的子项
-                new String[]{"ItemTitle", "ItemText"},
-                // ImageItem的XML文件里面的一个ImageView,两个TextView ID
-                new int[]{R.id.ItemTitle, R.id.ItemText});
-
-        */
-
-        SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,// 数据源
+        ShowItemAdapter listItemAdapter = new ShowItemAdapter(this, listItem,// 数据源
                 android.R.layout.simple_list_item_2,
                 // 动态数组与ImageItem对应的子项
                 new String[]{"ItemTitle", "ItemText"},
                 // ImageItem的XML文件里面的一个ImageView,两个TextView ID
                 new int[]{android.R.id.text1, android.R.id.text2});
 
-        // 添加并且显示
         list.setAdapter(listItemAdapter);
 
-        // 添加点击
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                //setTitle("点击第" + arg2 + "项");
             }
         });
-        /*
-        // 添加长按点击
-        list.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v,
-                                            ContextMenu.ContextMenuInfo menuInfo) {
-                menu.setHeaderTitle("长按菜单-ContextMenu");
-                menu.add(0, 0, 0, "弹出长按菜单0");
-                menu.add(0, 1, 0, "弹出长按菜单1");
-            }
-        });
-        */
-
-    }
-
-    private void initView() {
-        myHelper = new DBOpenHelper(this, DB_NAME, null, 1);
-        db = myHelper.getWritableDatabase();
-        tv_name = findViewById(R.id.tv_itemname);
     }
 
     private MedicineItem setMedicineInfo(int id) {
@@ -158,15 +173,4 @@ public class ShowItemActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    /*
-        @Override
-        public boolean onContextItemSelected(MenuItem item) {
-            setTitle("点击了长按菜单的第" + item.getItemId() + "项");
-            return super.onContextItemSelected(item);
-        }
-    */
-    @Override
-    public void onClick(View view) {
-
-    }
 }

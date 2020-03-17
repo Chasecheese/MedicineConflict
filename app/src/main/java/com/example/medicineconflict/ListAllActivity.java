@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -38,6 +40,9 @@ public class ListAllActivity extends AppCompatActivity {
 //    private SQLiteDatabase db;
     private ListView listView;
     private HashMap<String, MedicineItem> checkMap = new HashMap<>();
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_all);
@@ -63,7 +68,7 @@ public class ListAllActivity extends AppCompatActivity {
             checkMap.put(item.getName(),item);
         }
 
-        listView.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, li));
+        listView.setAdapter(new ListAllAdapter(this,android.R.layout.simple_list_item_1, li));
 
         listView.setTextFilterEnabled(true);
 

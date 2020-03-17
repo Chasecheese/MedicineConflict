@@ -28,30 +28,42 @@
             android:textSize="20dp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    <RadioGroup
+        android:id="@+id/RG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
         <RadioButton
+            android:id="@+id/rb4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="禁忌"
-            android:id="@+id/radioLevel4" />
+            android:textStyle="bold"
+            android:text="禁忌"/>
+
         <RadioButton
+            android:id="@+id/rb3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="严重"
-            android:id="@+id/radioLevel3" />
+            android:textStyle="bold"
+            android:text="严重"/>
+
         <RadioButton
+            android:id="@+id/rb2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="中度"
-            android:id="@+id/radioLevel2" />
+            android:textStyle="bold"
+            android:text="中度"/>
+
         <RadioButton
+            android:id="@+id/rb1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="轻度"
-            android:id="@+id/radioLevel1" />
-    </LinearLayout>
+            android:textStyle="bold"
+            android:text="轻度"/>
+
+    </RadioGroup>
 
 
     <LinearLayout
@@ -61,7 +73,8 @@
         <ListView
             android:id="@+id/ListView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" >
+        </ListView>
 
     </LinearLayout>
 
