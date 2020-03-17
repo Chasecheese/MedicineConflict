@@ -13,6 +13,15 @@ import java.util.List;
 
 public class ListAllAdapter extends BaseAdapter {
 
+    public static final String DB_NAME = "new_medicine_db";
+    public static final String TABLE_NAME="newMedicineItem";
+    public static final String ID = "ID";
+    public static final String NAME="Name";
+    public static final String LEVEL4 = "level_4";
+    public static final String LEVEL3 = "level_3";
+    public static final String LEVEL2 = "level_2";
+    public static final String LEVEL1 = "level_1";
+
     private LayoutInflater inflater;
     private List<MedicineItem> list;
     private Context context;
@@ -22,8 +31,7 @@ public class ListAllAdapter extends BaseAdapter {
         //Button btn_check;
     }
 
-    public static final String DB_NAME = "new_medicine_db";
-    public static final String TABLE_NAME="newMedicineItem";
+
 
     public ListAllAdapter(Context context, List<MedicineItem> list){
         inflater = LayoutInflater.from(context);
@@ -72,7 +80,6 @@ public class ListAllAdapter extends BaseAdapter {
             }
         });
         */
-
         return convertView;
     }
 }

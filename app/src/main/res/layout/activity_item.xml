@@ -30,6 +30,32 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="禁忌"
+            android:id="@+id/radioLevel4" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="严重"
+            android:id="@+id/radioLevel3" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中度"
+            android:id="@+id/radioLevel2" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="轻度"
+            android:id="@+id/radioLevel1" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
         <ListView

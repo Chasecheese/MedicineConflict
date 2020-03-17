@@ -89,13 +89,22 @@ public class ShowItemActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
-
+        /*
         SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,// 数据源
-                R.layout.list_items,// ListItem的XML实现
+                R.layout.list_items,
                 // 动态数组与ImageItem对应的子项
                 new String[]{"ItemTitle", "ItemText"},
                 // ImageItem的XML文件里面的一个ImageView,两个TextView ID
                 new int[]{R.id.ItemTitle, R.id.ItemText});
+
+        */
+
+        SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,// 数据源
+                android.R.layout.simple_list_item_2,
+                // 动态数组与ImageItem对应的子项
+                new String[]{"ItemTitle", "ItemText"},
+                // ImageItem的XML文件里面的一个ImageView,两个TextView ID
+                new int[]{android.R.id.text1, android.R.id.text2});
 
         // 添加并且显示
         list.setAdapter(listItemAdapter);
