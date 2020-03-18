@@ -36,6 +36,13 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/rb_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="全部"/>
+
+        <RadioButton
             android:id="@+id/rb4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

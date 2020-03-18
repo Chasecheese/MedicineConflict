@@ -83,16 +83,34 @@ public class ListAllActivity extends AppCompatActivity {
             }
         });
 
+        //设置SearchView自动缩小为图标
+        searchView.setIconifiedByDefault(false);//设为true则搜索栏 缩小成俄日一个图标点击展开
+        //设置该SearchView显示搜索按钮
+        searchView.setSubmitButtonEnabled(true);
+        //设置默认提示文字
+        searchView.setQueryHint("输入您想查找的内容");
+
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             // 当点击搜索按钮时触发该方法
             @Override
             public boolean onQueryTextSubmit(String query) {
+                if(checkMap.get(query)!=null){
+                    int tempID = checkMap.get(query).getID();
+                    Intent intent = new Intent(ListAllActivity.this, ShowItemActivity.class);
+                    intent.putExtra("id", tempID);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(ListAllActivity.this, "当前搜索不存在", Toast.LENGTH_SHORT).show();
+                }
                 return false;
             }
             // 当搜索内容改变时触发该方法
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (!TextUtils.isEmpty(newText)){
+                    //adapter.getFilter().filter(newText.toString());
                     listView.setFilterText(newText);
                 }else{
                     listView.clearTextFilter();

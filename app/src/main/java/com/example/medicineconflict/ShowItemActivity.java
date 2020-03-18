@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class ShowItemActivity extends AppCompatActivity {
@@ -33,11 +35,15 @@ public class ShowItemActivity extends AppCompatActivity {
     private DBOpenHelper myHelper;
     private SQLiteDatabase db;
     private RadioGroup rg;
+    private RadioButton rb_all;
     private RadioButton rb4;
     private RadioButton rb3;
     private RadioButton rb2;
     private RadioButton rb1;
     private ListView list;
+    private SimpleAdapter listItemAdapter;
+    private List<Recomend> data;
+    private ShowItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,7 @@ public class ShowItemActivity extends AppCompatActivity {
 
     public void initButtons(){
         rg = findViewById(R.id.RG);
+        rb_all = findViewById(R.id.rb_all);
         rb4 = findViewById(R.id.rb4);
         rb3 = findViewById(R.id.rb3);
         rb2 = findViewById(R.id.rb2);
@@ -57,20 +64,30 @@ public class ShowItemActivity extends AppCompatActivity {
         rg.setOnCheckedChangeListener(new getItem());
     }
 
+
     private class getItem implements RadioGroup.OnCheckedChangeListener{
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
+
             if(checkedId==rb4.getId()){
-                Toast.makeText(ShowItemActivity.this,"rb4选中", Toast.LENGTH_LONG).show();
+                Toast.makeText(ShowItemActivity.this,"禁忌：严禁同时时服用", Toast.LENGTH_LONG).show();
+                adapter.getFilter().filter("禁忌");
             }
             if(checkedId==rb3.getId()){
-                Toast.makeText(ShowItemActivity.this,"rb3选中", Toast.LENGTH_LONG).show();
+                Toast.makeText(ShowItemActivity.this,"严重", Toast.LENGTH_LONG).show();
+                adapter.getFilter().filter("严重");
             }
             if(checkedId==rb2.getId()){
-                Toast.makeText(ShowItemActivity.this,"rb2选中", Toast.LENGTH_LONG).show();
+                Toast.makeText(ShowItemActivity.this,"中度", Toast.LENGTH_LONG).show();
+                adapter.getFilter().filter("中度");
             }
             if(checkedId==rb1.getId()){
-                Toast.makeText(ShowItemActivity.this,"rb1选中", Toast.LENGTH_LONG).show();
+                Toast.makeText(ShowItemActivity.this,"轻度", Toast.LENGTH_LONG).show();
+                adapter.getFilter().filter("轻度");
+            }
+            if(checkedId==rb_all.getId()){
+                Toast.makeText(ShowItemActivity.this,"全部", Toast.LENGTH_LONG).show();
+                adapter.getFilter().filter("");
             }
         }
     }
@@ -79,6 +96,7 @@ public class ShowItemActivity extends AppCompatActivity {
         myHelper = new DBOpenHelper(this, DB_NAME, null, 1);
         db = myHelper.getWritableDatabase();
         tv_name = findViewById(R.id.tv_itemname);
+        data = new ArrayList<>();
     }
 
     private void initLsit(){
@@ -107,8 +125,8 @@ public class ShowItemActivity extends AppCompatActivity {
                 HashMap<String, Object> map = new HashMap<String, Object>();
                 map.put("ItemTitle", coListLevel4[i]);
                 map.put("ItemText", "禁忌");
-                if(!coListLevel4[i].equals("#"))
-                    listItem.add(map);
+                listItem.add(map);
+                data.add(new Recomend(coListLevel4[i],"禁忌"));
             }
         }
         if(!coListLevel3[0].equals("#")){
@@ -117,6 +135,7 @@ public class ShowItemActivity extends AppCompatActivity {
                 map.put("ItemTitle", coListLevel3[i]);
                 map.put("ItemText", "严重");
                 listItem.add(map);
+                data.add(new Recomend(coListLevel3[i],"严重"));
             }
         }
         if(!coListLevel2[0].equals("#")){
@@ -125,6 +144,7 @@ public class ShowItemActivity extends AppCompatActivity {
                 map.put("ItemTitle", coListLevel2[i]);
                 map.put("ItemText", "中度");
                 listItem.add(map);
+                data.add(new Recomend(coListLevel2[i],"中度"));
             }
         }
         if(!coListLevel1[0].equals("#")){
@@ -133,17 +153,22 @@ public class ShowItemActivity extends AppCompatActivity {
                 map.put("ItemTitle", coListLevel1[i]);
                 map.put("ItemText", "轻度");
                 listItem.add(map);
+                data.add(new Recomend(coListLevel1[i],"轻度"));
             }
         }
 
-        ShowItemAdapter listItemAdapter = new ShowItemAdapter(this, listItem,// 数据源
+        adapter = new ShowItemAdapter(this,data);
+
+        listItemAdapter = new SimpleAdapter(this, listItem,// 数据源
                 android.R.layout.simple_list_item_2,
                 // 动态数组与ImageItem对应的子项
                 new String[]{"ItemTitle", "ItemText"},
                 // ImageItem的XML文件里面的一个ImageView,两个TextView ID
                 new int[]{android.R.id.text1, android.R.id.text2});
 
-        list.setAdapter(listItemAdapter);
+        //list.setAdapter(listItemAdapter);
+        list.setAdapter(adapter);
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

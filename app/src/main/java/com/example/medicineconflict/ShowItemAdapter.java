@@ -1,27 +1,139 @@
 package com.example.medicineconflict;
 
 import android.content.Context;
-import android.widget.SimpleAdapter;
+import android.content.Intent;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class ShowItemAdapter extends SimpleAdapter {
-    /**
-     * Constructor
-     *
-     * @param context  The context where the View associated with this SimpleAdapter is running
-     * @param data     A List of Maps. Each entry in the List corresponds to one row in the list. The
-     *                 Maps contain the data for each row, and should include all the entries specified in
-     *                 "from"
-     * @param resource Resource identifier of a view layout that defines the views for this list
-     *                 item. The layout file should include at least those named views defined in "to"
-     * @param from     A list of column names that will be added to the Map associated with each
-     *                 item.
-     * @param to       The views that should display column in the "from" parameter. These should all be
-     *                 TextViews. The first N views in this list are given the values of the first N columns
-     */
-    public ShowItemAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
-        super(context, data, resource, from, to);
+public class ShowItemAdapter extends BaseAdapter implements Filterable {
+
+    public static final String DB_NAME = "new_medicine_db";
+    public static final String TABLE_NAME="newMedicineItem";
+    public static final String ID = "ID";
+    public static final String NAME="Name";
+    public static final String LEVEL4 = "level_4";
+    public static final String LEVEL3 = "level_3";
+    public static final String LEVEL2 = "level_2";
+    public static final String LEVEL1 = "level_1";
+
+    private LayoutInflater inflater;
+    private List<Recomend> displayItem;
+    private List<Recomend> item;
+    private Context context;
+    private Filter mFilter;
+
+    public static class ViewHolder{
+        TextView Title;
+        TextView Text;
+    }
+
+    public ShowItemAdapter(Context context, List<Recomend> data){
+        inflater = LayoutInflater.from(context);
+        this.displayItem = data;
+        this.context = context;
+        item = data;
+    }
+
+    @Override
+    public int getCount() {
+        return displayItem.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return displayItem.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+
+        if (convertView == null) {
+            convertView = inflater.inflate(android.R.layout.simple_list_item_2, null);
+            viewHolder = new ViewHolder();
+
+            viewHolder.Title = convertView.findViewById(android.R.id.text1);
+            viewHolder.Text = convertView.findViewById(android.R.id.text2);
+
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        viewHolder.Title.setText(displayItem.get(position).getTitle());
+        viewHolder.Text.setText(displayItem.get(position).getDesc());
+        return convertView;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (mFilter ==null){
+            mFilter = new MyFilter();
+        }
+        return mFilter;
+    }
+    //我们需要定义一个过滤器的类来定义过滤规则
+    class MyFilter extends Filter{
+        //我们在performFiltering(CharSequence charSequence)这个方法中定义过滤规则
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            FilterResults result = new FilterResults();
+            List<Recomend> list ;
+            /*
+            if(charSequence == null||charSequence.length()==0){
+                result.values = item;
+                result.count = item.size();
+            } else{
+                String charSequenceString = charSequence.toString();
+                final ArrayList<Recomend> newValues = new ArrayList<Recomend>();
+                for(int i=0;i<item.size();i++){
+                    final String value = item.get(i).getDesc();
+                    if(value.equals(charSequenceString)){
+                        newValues.add(item.get(i));
+                    }
+                }
+                result.values = newValues;
+                result.count = newValues.size();
+            }
+            */
+            if (TextUtils.isEmpty(charSequence)){//当过滤的关键字为空的时候，我们则显示所有的数据
+                list  = item;
+            }else {//否则把符合条件的数据对象添加到集合中
+                list = new ArrayList<>();
+                for (Recomend recomend:item){
+                    if (recomend.getTitle().contains(charSequence)||recomend.getDesc().contains(charSequence)){
+                        list.add(recomend);
+                    }
+
+                }
+            }
+            result.values = list; //将得到的集合保存到FilterResults的value变量中
+            result.count = list.size();//将集合的大小保存到FilterResults的count变量中
+            return result;
+        }
+        //在publishResults方法中告诉适配器更新界面
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            displayItem = (List<Recomend>)filterResults.values;
+            if (filterResults.count>0){
+                notifyDataSetChanged();//通知数据发生了改变
+            }else {
+                notifyDataSetInvalidated();//通知数据失效
+            }
+        }
     }
 }
