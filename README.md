@@ -1,3 +1,14 @@
 # MedicineConflict
-This is a part of Medicine Helper Application.
-It aims at defining the Conflict between different medicine.
+
+# 简单的Android的学习程序：
+熟悉Android的主要模式。
+
+# 主要功能：
+此Android程序为用药助手的一部分功能，主要实现查询药物的相互作用，采用“禁忌”、“严重”、“中度”、“轻度”四类等级分类。
+
+# 实现方法
+查询药物的相互作用，数据库仅由管理员修改，用户仅有查看权，数据库采用SQite，可以采用SQLiteStudio查看。
+自定义了过滤器，对数据进行过滤
+
+# 
+预计还会添加对药品的滑动索引表。
