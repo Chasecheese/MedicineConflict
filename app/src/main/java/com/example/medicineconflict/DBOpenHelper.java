@@ -6,13 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
-
+    /*
     public static final String DB_NAME = "new_medicine_db";
+    */
+
     public static final String TABLE_NAME="newMedicineItem";
     public static final String ID = "ID";
     public static final String NAME="Name";
@@ -48,18 +49,18 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<MedicineItem> getBasicInfo(){
+
+    public ArrayList<MedicineInfo> getListInfo(){
         Cursor c=db.query(TABLE_NAME,new String[]{},null,null,null,null,ID);
-        List<MedicineItem> list=new ArrayList<MedicineItem>();
+        ArrayList<MedicineInfo> list=new ArrayList<>();
         for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
         {
             String name=c.getString(c.getColumnIndex(NAME));
-//            String conflict=c.getString(c.getColumnIndex(CONFLICT));
             String level4 = c.getString(c.getColumnIndex(LEVEL4));
             String level3 = c.getString(c.getColumnIndex(LEVEL3));
             String level2 = c.getString(c.getColumnIndex(LEVEL2));
             String level1 = c.getString(c.getColumnIndex(LEVEL1));
-            MedicineItem d=new MedicineItem(name,level4,level3,level2,level1);
+            MedicineInfo d=new MedicineInfo(name,level4,level3,level2,level1);
             d.setID(c.getInt(c.getColumnIndex(ID)));
             list.add(d);
         }
@@ -67,24 +68,23 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public ArrayList<MedicineItem> getListInfo(){
-        Cursor c=db.query(TABLE_NAME,new String[]{},null,null,null,null,ID);
-        ArrayList<MedicineItem> list=new ArrayList<MedicineItem>();
-        for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
-        {
-            String name=c.getString(c.getColumnIndex(NAME));
-//            String conflict=c.getString(c.getColumnIndex(CONFLICT));
+    public MedicineInfo getMedicineInfo(int id) {
+        Cursor c = db.query(TABLE_NAME, new String[]{}, "ID=" + id, null, null, null, null);
+        if (c.moveToFirst()) {
+            String name = c.getString(c.getColumnIndex(NAME));
+
             String level4 = c.getString(c.getColumnIndex(LEVEL4));
             String level3 = c.getString(c.getColumnIndex(LEVEL3));
             String level2 = c.getString(c.getColumnIndex(LEVEL2));
             String level1 = c.getString(c.getColumnIndex(LEVEL1));
-            MedicineItem d=new MedicineItem(name,level4,level3,level2,level1);
-            d.setID(c.getInt(c.getColumnIndex(ID)));
-            list.add(d);
+            MedicineInfo d = new MedicineInfo(name, level4, level3, level2, level1);
+            d.setID(c.getInt(c.getColumnIndex("ID")));
+            c.close();
+            return d;
+        } else {
+            c.close();
+            return null;
         }
-        c.close();
-        return list;
-
     }
 
 }

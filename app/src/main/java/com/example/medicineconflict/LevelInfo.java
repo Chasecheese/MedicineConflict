@@ -1,11 +1,11 @@
 package com.example.medicineconflict;
 
-public class Recomend {
+public class LevelInfo {
 
     String title;
     String desc;
 
-    public Recomend(String title, String desc) {
+    public LevelInfo(String title, String desc) {
         this.title = title;
         this.desc = desc;
     }

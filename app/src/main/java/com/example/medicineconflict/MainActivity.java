@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.button_mainactivity_others:
                 Toast.makeText(this, "Not Ready!", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(this, X.class));
                 break;
             default:
                 break;

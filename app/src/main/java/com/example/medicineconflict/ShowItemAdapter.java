@@ -1,13 +1,11 @@
 package com.example.medicineconflict;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
@@ -27,8 +25,8 @@ public class ShowItemAdapter extends BaseAdapter implements Filterable {
     public static final String LEVEL1 = "level_1";
 
     private LayoutInflater inflater;
-    private List<Recomend> displayItem;
-    private List<Recomend> item;
+    private List<LevelInfo> displayItem;
+    private List<LevelInfo> item;
     private Context context;
     private Filter mFilter;
 
@@ -37,7 +35,7 @@ public class ShowItemAdapter extends BaseAdapter implements Filterable {
         TextView Text;
     }
 
-    public ShowItemAdapter(Context context, List<Recomend> data){
+    public ShowItemAdapter(Context context, List<LevelInfo> data){
         inflater = LayoutInflater.from(context);
         this.displayItem = data;
         this.context = context;
@@ -92,31 +90,15 @@ public class ShowItemAdapter extends BaseAdapter implements Filterable {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             FilterResults result = new FilterResults();
-            List<Recomend> list ;
-            /*
-            if(charSequence == null||charSequence.length()==0){
-                result.values = item;
-                result.count = item.size();
-            } else{
-                String charSequenceString = charSequence.toString();
-                final ArrayList<Recomend> newValues = new ArrayList<Recomend>();
-                for(int i=0;i<item.size();i++){
-                    final String value = item.get(i).getDesc();
-                    if(value.equals(charSequenceString)){
-                        newValues.add(item.get(i));
-                    }
-                }
-                result.values = newValues;
-                result.count = newValues.size();
-            }
-            */
+            List<LevelInfo> list ;
+
             if (TextUtils.isEmpty(charSequence)){//当过滤的关键字为空的时候，我们则显示所有的数据
                 list  = item;
             }else {//否则把符合条件的数据对象添加到集合中
                 list = new ArrayList<>();
-                for (Recomend recomend:item){
-                    if (recomend.getTitle().contains(charSequence)||recomend.getDesc().contains(charSequence)){
-                        list.add(recomend);
+                for (LevelInfo levelInfo :item){
+                    if (levelInfo.getTitle().contains(charSequence)|| levelInfo.getDesc().contains(charSequence)){
+                        list.add(levelInfo);
                     }
 
                 }
@@ -128,7 +110,7 @@ public class ShowItemAdapter extends BaseAdapter implements Filterable {
         //在publishResults方法中告诉适配器更新界面
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            displayItem = (List<Recomend>)filterResults.values;
+            displayItem = (List<LevelInfo>)filterResults.values;
             if (filterResults.count>0){
                 notifyDataSetChanged();//通知数据发生了改变
             }else {

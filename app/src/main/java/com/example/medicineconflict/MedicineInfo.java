@@ -1,6 +1,6 @@
 package com.example.medicineconflict;
 
-public class MedicineItem {
+public class MedicineInfo {
 
     private int ID;
     private String Name;
@@ -9,11 +9,11 @@ public class MedicineItem {
     private String level2;
     private String level1;
 
-    public MedicineItem(String name) {
+    public MedicineInfo(String name) {
         Name = name;
     }
 
-    public MedicineItem(String name, String level4, String level3, String level2, String level1) {
+    public MedicineInfo(String name, String level4, String level3, String level2, String level1) {
         Name = name;
         this.level4 = level4;
         this.level3 = level3;

@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="0dp"
 
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginStart="0dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,14 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="药物名称:    "
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_itemname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <RadioGroup
@@ -33,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:checkedButton="@id/rb_all"
         android:orientation="horizontal">
 
         <RadioButton
@@ -71,7 +73,6 @@
             android:text="轻度"/>
 
     </RadioGroup>
-
 
     <LinearLayout
         android:layout_width="fill_parent"

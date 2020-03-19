@@ -1,19 +1,12 @@
 package com.example.medicineconflict;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SearchView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,11 +28,8 @@ public class ListAllActivity extends AppCompatActivity {
 
     private DBOpenHelper myHelper;
     private SearchView searchView;
-//    private ListAllAdapter adapter;
-//    private ListView lv;
-//    private SQLiteDatabase db;
     private ListView listView;
-    private HashMap<String, MedicineItem> checkMap = new HashMap<>();
+    private HashMap<String, MedicineInfo> checkMap = new HashMap<>();
 
 
 
@@ -48,6 +38,7 @@ public class ListAllActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_all);
         init();
         initArrayList();
+        this.setTitle("药物相互作用查询表");
     }
 
     public void init(){
@@ -59,11 +50,11 @@ public class ListAllActivity extends AppCompatActivity {
     public void initArrayList(){
 
         searchView = findViewById(R.id.sv);
-        ArrayList<MedicineItem> temp = new ArrayList<>();
+        ArrayList<MedicineInfo> temp = new ArrayList<>();
         temp = myHelper.getListInfo();
         ArrayList<String> li = new ArrayList<>();
 
-        for(MedicineItem item:temp){
+        for(MedicineInfo item:temp){
             li.add(item.getName());
             checkMap.put(item.getName(),item);
         }
@@ -120,65 +111,5 @@ public class ListAllActivity extends AppCompatActivity {
         });
 
     }
-
-    /*
-    public void initList(){
-
-        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
-        ArrayList<MedicineItem> temp = new ArrayList<>();
-        temp = myHelper.getListInfo();
-        for (MedicineItem a : temp) {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("Item", a.getName());
-            checkMap.put(a.getName(),a);
-            listItem.add(map);
-        }
-        SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem, R.layout.medicine_item,
-                new String[]{"Item"}, new int[]{R.id.tv_name});
-
-        listView.setAdapter(listItemAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-
-                String result = arg0.getItemAtPosition(arg2).toString();//获取选择项的值
-                String name = result.substring(result.indexOf("=")+1,result.indexOf("}"));
-
-                Intent intent = new Intent(ListAllActivity.this, ShowItemActivity.class);
-                intent.putExtra("id", checkMap.get(name).getID());
-
-                startActivity(intent);
-
-            }
-        });
-
-    }
-    */
-    /*
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_all);
-        initView();
-    }
-
-    private void initView(){
-        lv = findViewById(R.id.listView_medicine);
-        myHelper = new DBOpenHelper(this,DB_NAME,null,1);
-        adapter = new ListAllAdapter(this,myHelper.getBasicInfo());
-        lv.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        myHelper.close();
-    }
-
-    @Override
-    public void onClick(View v) {
-    }
-    */
 
 }
