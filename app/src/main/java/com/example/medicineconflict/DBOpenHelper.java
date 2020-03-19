@@ -10,9 +10,7 @@ import java.util.ArrayList;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
-    /*
-    public static final String DB_NAME = "new_medicine_db";
-    */
+    public static final String DB_NAME = "medicine_db";
 
     public static final String TABLE_NAME="newMedicineItem";
     public static final String ID = "ID";
@@ -33,7 +31,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("drop table if exists "+"TABLE_NAME");
-
         db.execSQL("create table if not exists "+TABLE_NAME+" ("+
                 ID+" integer primary key autoincrement,"+NAME+" varchar,"+
                 LEVEL4+" varchar,"+LEVEL3+" varchar,"+LEVEL2+" varchar,"+

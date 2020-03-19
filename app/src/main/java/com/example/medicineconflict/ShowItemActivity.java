@@ -22,7 +22,7 @@ import java.util.List;
 public class ShowItemActivity extends AppCompatActivity {
 
 
-    public static final String DB_NAME = "new_medicine_db";
+    public static final String DB_NAME = "medicine_db";
     /*
     public static final String TABLE_NAME = "newMedicineItem";
     public static final String ID = "ID";

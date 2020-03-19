@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ShowItemAdapter extends BaseAdapter implements Filterable {
 
-    public static final String DB_NAME = "new_medicine_db";
+    public static final String DB_NAME = "medicine_db";
     public static final String TABLE_NAME="newMedicineItem";
     public static final String ID = "ID";
     public static final String NAME="Name";

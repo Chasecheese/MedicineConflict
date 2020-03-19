@@ -34,9 +34,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         String rootpath = path.substring(0, path.lastIndexOf("/"));
         String datapath = rootpath + "/" + "databases";
         System.out.println("路：" + datapath);
-        String name = "new_medicine_db";
-        CopyFile.copy(this, name, datapath, name);
-
+        String name1 = "medicine_db-shm";
+        String name2 = "medicine_db-wal";
+        String name3 = "medicine_db";
+        CopyFile.copy(this, name1, datapath, name1);
+        CopyFile.copy(this, name2, datapath, name2);
+        CopyFile.copy(this, name3, datapath, name3);
 
     }
 
