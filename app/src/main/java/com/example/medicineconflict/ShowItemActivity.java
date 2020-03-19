@@ -69,23 +69,23 @@ public class ShowItemActivity extends AppCompatActivity {
         public void onCheckedChanged(RadioGroup group, int checkedId) {
 
             if(checkedId==rb4.getId()){
-                Toast.makeText(ShowItemActivity.this,"禁忌：严禁同时时服用", Toast.LENGTH_LONG).show();
+                //Toast.makeText(ShowItemActivity.this,"禁忌：严禁同时时服用", Toast.LENGTH_LONG).show();
                 adapter.getFilter().filter("禁忌");
             }
             if(checkedId==rb3.getId()){
-                Toast.makeText(ShowItemActivity.this,"严重", Toast.LENGTH_LONG).show();
+                //Toast.makeText(ShowItemActivity.this,"严重", Toast.LENGTH_LONG).show();
                 adapter.getFilter().filter("严重");
             }
             if(checkedId==rb2.getId()){
-                Toast.makeText(ShowItemActivity.this,"中度", Toast.LENGTH_LONG).show();
+                //Toast.makeText(ShowItemActivity.this,"中度", Toast.LENGTH_LONG).show();
                 adapter.getFilter().filter("中度");
             }
             if(checkedId==rb1.getId()){
-                Toast.makeText(ShowItemActivity.this,"轻度", Toast.LENGTH_LONG).show();
+                //Toast.makeText(ShowItemActivity.this,"轻度", Toast.LENGTH_LONG).show();
                 adapter.getFilter().filter("轻度");
             }
             if(checkedId==rb_all.getId()){
-                Toast.makeText(ShowItemActivity.this,"全部", Toast.LENGTH_LONG).show();
+                //Toast.makeText(ShowItemActivity.this,"全部", Toast.LENGTH_LONG).show();
                 adapter.getFilter().filter("");
             }
         }

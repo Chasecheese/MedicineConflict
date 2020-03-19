@@ -1,6 +1,7 @@
 package com.example.medicineconflict;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,7 +35,7 @@ public class ListAllActivity extends AppCompatActivity {
     private SearchView searchView;
     private ListView listView;
     private HashMap<String, MedicineInfo> checkMap = new HashMap<>();
-
+    private ListAllAdapter adapter;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,9 @@ public class ListAllActivity extends AppCompatActivity {
 
         Collections.sort(li, CHINA_COMPARE);
 
-        listView.setAdapter(new ListAllAdapter(this,android.R.layout.simple_list_item_1, li));
+        adapter = new ListAllAdapter(this,android.R.layout.simple_list_item_1, li);
+
+        listView.setAdapter(adapter);
 
         listView.setTextFilterEnabled(true);
 
@@ -72,7 +75,7 @@ public class ListAllActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 int tempID = checkMap.get(arg0.getItemAtPosition(arg2).toString()).getID();
-                Toast.makeText(ListAllActivity.this, "当前药物："+arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ListAllActivity.this, "当前药物："+arg0.getItemAtPosition(arg2).toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ListAllActivity.this, ShowItemActivity.class);
                 intent.putExtra("id", tempID);
                 startActivity(intent);
@@ -106,10 +109,11 @@ public class ListAllActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (!TextUtils.isEmpty(newText)){
-                    //adapter.getFilter().filter(newText.toString());
-                    listView.setFilterText(newText);
+                    adapter.getFilter().filter(newText.toString());
+                    //listView.setFilterText(newText);
                 }else{
                     listView.clearTextFilter();
+                    adapter.getFilter().filter("");
                 }
                 return false;
             }
