@@ -12,7 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class ListAllActivity extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class ListAllActivity extends AppCompatActivity {
     public static final String LEVEL3 = "level_3";
     public static final String LEVEL2 = "level_2";
     public static final String LEVEL1 = "level_1";
+    private final static Comparator<Object> CHINA_COMPARE = Collator.getInstance(java.util.Locale.CHINA);
 
     private DBOpenHelper myHelper;
     private SearchView searchView;
@@ -43,7 +47,6 @@ public class ListAllActivity extends AppCompatActivity {
 
     public void init(){
         myHelper = new DBOpenHelper(this, DB_NAME, null, 1);
-//        db = myHelper.getWritableDatabase();
         listView = findViewById(R.id.listView_medicine);
     }
 
@@ -58,6 +61,8 @@ public class ListAllActivity extends AppCompatActivity {
             li.add(item.getName());
             checkMap.put(item.getName(),item);
         }
+
+        Collections.sort(li, CHINA_COMPARE);
 
         listView.setAdapter(new ListAllAdapter(this,android.R.layout.simple_list_item_1, li));
 

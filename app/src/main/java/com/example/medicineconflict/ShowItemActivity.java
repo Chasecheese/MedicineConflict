@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -28,6 +31,7 @@ public class ShowItemActivity extends AppCompatActivity {
     public static final String LEVEL2 = "level_2";
     public static final String LEVEL1 = "level_1";
     */
+    private final static Comparator<Object> CHINA_COMPARE = Collator.getInstance(java.util.Locale.CHINA);
     private DBOpenHelper myHelper;
 
     private RadioButton rb_all;
@@ -109,7 +113,6 @@ public class ShowItemActivity extends AppCompatActivity {
         String[] coListLevel1 = level1.split(",");
 
         ListView listView = findViewById(R.id.ListView);
-
 
         if(!coListLevel4[0].equals("#")){
             for (String s : coListLevel4) {
