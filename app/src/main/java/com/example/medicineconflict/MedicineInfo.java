@@ -9,10 +9,6 @@ public class MedicineInfo {
     private String level2;
     private String level1;
 
-    public MedicineInfo(String name) {
-        Name = name;
-    }
-
     public MedicineInfo(String name, String level4, String level3, String level2, String level1) {
         Name = name;
         this.level4 = level4;

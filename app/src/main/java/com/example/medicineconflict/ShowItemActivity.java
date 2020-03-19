@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -107,29 +108,40 @@ public class ShowItemActivity extends AppCompatActivity {
         String level2 = temp.getLevel2();
         String level1 = temp.getLevel1();
 
-        String[] coListLevel4 = level4.split(",");
-        String[] coListLevel3 = level3.split(",");
-        String[] coListLevel2 = level2.split(",");
-        String[] coListLevel1 = level1.split(",");
+
+
+        String[] arrayLevel4 = level4.split(" ");
+        String[] arrayLevel3 = level3.split(" ");
+        String[] arrayLevel2 = level2.split(" ");
+        String[] arrayLevel1 = level1.split(" ");
+
+        ArrayList<String> coListLevel4 = new ArrayList<>(Arrays.asList(arrayLevel4));
+        Collections.sort(coListLevel4, CHINA_COMPARE);
+        ArrayList<String> coListLevel3 = new ArrayList<>(Arrays.asList(arrayLevel3));
+        Collections.sort(coListLevel4, CHINA_COMPARE);
+        ArrayList<String> coListLevel2 = new ArrayList<>(Arrays.asList(arrayLevel2));
+        Collections.sort(coListLevel4, CHINA_COMPARE);
+        ArrayList<String> coListLevel1 = new ArrayList<>(Arrays.asList(arrayLevel1));
+        Collections.sort(coListLevel4, CHINA_COMPARE);
 
         ListView listView = findViewById(R.id.ListView);
 
-        if(!coListLevel4[0].equals("#")){
+        if(!coListLevel4.get(0).equals("#")){
             for (String s : coListLevel4) {
                 data.add(new LevelInfo(s, "禁忌"));
             }
         }
-        if(!coListLevel3[0].equals("#")){
+        if(!coListLevel3.get(0).equals("#")){
             for (String s : coListLevel3) {
                 data.add(new LevelInfo(s, "严重"));
             }
         }
-        if(!coListLevel2[0].equals("#")){
+        if(!coListLevel2.get(0).equals("#")){
             for (String s : coListLevel2) {
                 data.add(new LevelInfo(s, "中度"));
             }
         }
-        if(!coListLevel1[0].equals("#")){
+        if(!coListLevel1.get(0).equals("#")){
             for (String s : coListLevel1) {
                 data.add(new LevelInfo(s, "轻度"));
             }
